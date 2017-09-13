@@ -17,18 +17,20 @@
 </template>
 
 <script>
+import store from '@/store';
 export default {
   data: () => {
     return {
       form: {
-       email: ''
+       email: '',
+       password: ''
       }
     }
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      console.log(JSON.stringify(this.form));
+      store.dispatch('user/signin', this.form);
     }
   }
 }
