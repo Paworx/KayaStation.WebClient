@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import store from '@/store';
 export default {
   data: () => {
     return {
@@ -28,9 +27,10 @@ export default {
     }
   },
   methods: {
-    onSubmit(evt) {
+    async onSubmit(evt) {
       evt.preventDefault();
-      store.dispatch('user/signin', this.form);
+      let credentials = await this.$store.dispatch('user/signin', this.form);
+      this.$router.push('home');
     }
   }
 }
