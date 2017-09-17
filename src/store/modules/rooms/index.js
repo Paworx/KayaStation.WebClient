@@ -20,6 +20,11 @@ const rooms = {
             };
             commit('getById', params);
             return Promise.resolve(params);
+        },
+        async add({state, dispatch, commit}, newRoom) {
+            let room = await RoomsApi.add(newRoom);
+
+            return Promise.resolve(room);
         }
     }
 }

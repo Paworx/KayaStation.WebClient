@@ -1,6 +1,7 @@
 import { RoomType } from './types';
 
 const RoomsApi = {
+    currId: 0,
     async getById(id) {
         return Promise.resolve([{
             Id: 0,
@@ -8,6 +9,12 @@ const RoomsApi = {
             Price: 2100,
             Type: RoomType.Economy
         }])
+    },
+    async add(room){
+        let roomWithId = Object.assign({}, room, {
+            Id: ++ this.currId
+        })
+        return Promise.resolve()
     }
 }
 
