@@ -1,4 +1,4 @@
-import userApi from '@/api/user';
+import { UserApi } from '@/api';
 const user = {
     namespaced: true,
     state: {
@@ -14,7 +14,7 @@ const user = {
     },
     actions: {
         async signin ({state, commit}, user) {
-            let credentials = await userApi.signin(user);
+            let credentials = await UserApi.signin(user);
             commit('signin', credentials);
         }
     }

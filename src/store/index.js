@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex';
 import user from './modules/user';
+import rooms from './modules/rooms';
 Vue.use(Vuex);
 const store = new Vuex.Store({
     modules: {
-        user: user
+        user: user,
+        rooms: rooms
     }
 })
 
