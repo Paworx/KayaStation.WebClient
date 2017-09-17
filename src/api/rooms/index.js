@@ -14,7 +14,7 @@ const RoomsApi = {
         let roomWithId = Object.assign({}, room, {
             Id: ++ this.currId
         })
-        return Promise.resolve()
+        return Promise.resolve(roomWithId)
     }
 }
 

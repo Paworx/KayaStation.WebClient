@@ -14,17 +14,18 @@
         <b-table striped hover :items="rooms" :fields="fields"></b-table>
     </b-row>
 
-    <b-modal ref="room_add_modal" title="Add Room">
+    <b-modal ref="room_add_modal" title="Add Room" ok-title="Add" close-title="Cancel"
+        @ok="onSubmit" >
 
         <b-form @submit="onSubmit">
             <b-form-group label="Name:">
-                <b-form-input type="text" v-model="form.name" required></b-form-input>
+                <b-form-input type="text" v-model="form.Name" required></b-form-input>
             </b-form-group>
             <b-form-group label="Type:">
-                <b-form-input type="text" v-model="form.type" required></b-form-input>
+                <b-form-input type="text" v-model="form.Type" required></b-form-input>
             </b-form-group>
             <b-form-group label="Price:">
-                <b-form-input type="number" v-model="form.price" required></b-form-input>
+                <b-form-input type="number" v-model="form.Price" required></b-form-input>
             </b-form-group>
         </b-form>
     </b-modal>
@@ -36,13 +37,13 @@
 <script>
 
 export default {
-    data ()  {
+    data: () => {
         return {
             fields: ['Name', 'Price', 'Type'],
             form: {
-                name: '',
-                price: '',
-                type: ''
+                Name: '',
+                Price: '',
+                Type: ''
             }
         };
     },
@@ -55,7 +56,7 @@ export default {
             this.$refs.room_add_modal.show();
         },
         onSubmit() {
-
+            this.$store.dispatch('rooms/add', this.form);
         }
     },
     computed: {

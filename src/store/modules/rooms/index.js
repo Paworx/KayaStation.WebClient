@@ -9,6 +9,10 @@ const rooms = {
         getById(state, params) {
             let { id, rooms } = params;
             state.all = rooms;
+        },
+        add(state, room) {
+            console.log(room);
+            state.all = state.all.concat(room);
         }
     },
     actions: {
@@ -23,7 +27,7 @@ const rooms = {
         },
         async add({state, dispatch, commit}, newRoom) {
             let room = await RoomsApi.add(newRoom);
-
+            commit('add', room);
             return Promise.resolve(room);
         }
     }
