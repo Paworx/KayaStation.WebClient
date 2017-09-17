@@ -5,7 +5,7 @@
     </b-row>
     <b-row>
         <h1>Rooms</h1>
-        <b-table striped hover :items="rooms"></b-table>
+        <b-table striped hover :items="rooms" :fields="fields"></b-table>
     </b-row>
   </b-container>
 
@@ -15,6 +15,11 @@
 <script>
 
 export default {
+    data ()  {
+        return {
+            fields: ['Name', 'Price', 'Type']
+        };
+    },
     created () {
         this.$store.dispatch('rooms/getById', this.$store.state.user.email);
     },
