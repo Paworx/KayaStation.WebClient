@@ -17,7 +17,7 @@
     <b-modal ref="room_add_modal" title="Add Room" ok-title="Add" close-title="Cancel"
         @ok="onSubmit" >
 
-        <b-form @submit="onSubmit">
+        <b-form>
             <b-form-group label="Name:">
                 <b-form-input type="text" v-model="form.Name" required></b-form-input>
             </b-form-group>
