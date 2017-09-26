@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <div>
     <b-row>
         <h1>Welcome {{user}}!</h1>
     </b-row>
@@ -29,7 +29,7 @@
             </b-form-group>
         </b-form>
     </b-modal>
-  </b-container>
+  </div>
 
 
 </template>
