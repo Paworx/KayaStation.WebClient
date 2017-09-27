@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <h1>Welcome</h1>
+    <b-modal ref="sign_in_modal" id="signin-modal" title="Sign In"
+        ok-title="Submit" close-title="Cancel" @ok="onSubmit">
         <b-form @submit="onSubmit">
             <b-form-group id="grpEmail" label="Email" label-for="grpEmail">
                 <b-form-input id="txt-email" type="email" v-model="form.email" placeholder="Email" required="required"></b-form-input>
@@ -8,12 +8,8 @@
             <b-form-group id="grpPass" label="Password" label-for="grpPass">
                 <b-form-input id="txt-pass" type="password" v-model="form.password" placeholder="Password" required="required"></b-form-input>
             </b-form-group>
-            <div class="float-right">
-                <b-button type="reset" variant="secondary">Reset</b-button>
-                <b-button type="submit" variant="primary">Submit</b-button>
-            </div>
         </b-form>
-    </div>
+    </b-modal>
 </template>
 
 <script>

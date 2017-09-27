@@ -7,7 +7,7 @@
 
                 <b-nav is-nav-bar class="ml-auto">
                     <b-nav-item href="#" @click="onCreate()">Create an Account</b-nav-item>
-                    <b-nav-item to="/signin">Sign In</b-nav-item>
+                    <b-nav-item href="#" @click="onSignIn()">Sign In</b-nav-item>
                 </b-nav>
                
             </b-collapse>
@@ -16,19 +16,25 @@
 
         </b-jumbotron>
         <sign-up ref="sign_up_component" name="sign_up_modal"></sign-up>
+        <sign-in ref="sign_in_component" name="sign_in_modal"></sign-in>
     </div>
 </template>
 
 <script>
 import SignUp from './SignUp.vue'
+import SignIn from './SignIn.vue'
 export default {
     methods: {
         onCreate() {
             this.$refs.sign_up_component.$refs.sign_up_modal.show();
+        },
+        onSignIn() {
+            this.$refs.sign_in_component.$refs.sign_in_modal.show();
         }
     },
     components: {
-        SignUp
+        SignUp,
+        SignIn
     }
 }
 </script>
