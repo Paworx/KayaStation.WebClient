@@ -1,5 +1,16 @@
 <template>
   <div>
+      <b-navbar id="navbar" toggleable="md" type="dark">
+            <b-nav-toggle target="nav_collapse"></b-nav-toggle>
+            <b-navbar-brand href="#">Kaya Station</b-navbar-brand>
+            <b-collapse is-nav id="nav_collapse">
+
+                <b-nav is-nav-bar class="ml-auto">
+                    <b-nav-item href="#" @click="onLogout()">Logout</b-nav-item>
+                </b-nav>
+               
+            </b-collapse>
+        </b-navbar>
     <b-row>
         <h1>Welcome {{user}}!</h1>
     </b-row>
@@ -57,6 +68,9 @@ export default {
         },
         onSubmit() {
             this.$store.dispatch('rooms/add', this.form);
+        },
+        onLogout() {
+            this.$store.dispatch('user/logout');
         }
     },
     computed: {
