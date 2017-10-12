@@ -1,6 +1,6 @@
 <template>
-  <b-modal ref="sign_up_modal" id="signup-modal" title="Create an Account" ok-title="Register">
-      <b-form @submit="onSignUp">
+  <b-modal ref="sign_up_modal" id="signup-modal" title="Create an Account" ok-title="Register" @ok="onSignUp">
+      <b-form>
         <b-form-group id="grpName" label="Name" label-for="grpName">
             <b-form-input id="txt-name" type="text" v-model="form.hotelName" placeholder="Email" required="required"></b-form-input>
         </b-form-group>
@@ -21,14 +21,16 @@ export default {
             form: {
                 hotelName: '',
                 email: '',
-                password: '',
+                password: ''
             }
         }
     },
     methods: {
         async onSignUp(){
-            let newHotel = await this.$store.dispatch('user/signup', this.form)
-            
+            let tokens = await this.$store.dispatch('user/signup', this.form)
+            if(tokens){
+                this.$store.dispatch('user/signin', this.form)
+            }
         }
     }
 }

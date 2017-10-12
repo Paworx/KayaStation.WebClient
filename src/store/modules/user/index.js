@@ -3,7 +3,8 @@ const user = {
     namespaced: true,
     state: {
         email: '',
-        name: ''
+        name: '',
+        auth: {}
     },
     mutations: {
         signin(state, credentials) {
@@ -11,12 +12,17 @@ const user = {
             state.email = email;
             state.name = name;
         },
-        async signup(state, info){
-            let success = await UserApi.signup(info)
-        },
+        
         logout(state) {
             state.email = '';
             state.name = '';
+        },
+        cacheTokens(state, {requestToken, refreshToken, expiresIn}){
+            state.auth = Object.assign({}, state.auth, {
+                requestToken: requestToken,
+                refreshToken: refreshToken,
+                expiresIn: expiresIn
+            })
         }
     },
     actions: {
@@ -26,6 +32,25 @@ const user = {
         },
         async logout({state, commit, rootState}){
             commit('logout');
+        },
+        async signup({state, dispatch}, info){
+            console.log(info)
+            let success = await UserApi.signup(info)
+            if(success){
+                // get auth token
+                return dispatch('cacheAuthToken')
+            } else {
+                return false
+            }
+        },
+        async cacheAuthToken(state, {email, password}){
+            let credentials = {
+                email: email,
+                password: password
+            }
+            let tokens = await UserApi.getAuthToken(credentials)
+            commit('cacheTokens', tokens)
+            return tokens
         }
     }
 }

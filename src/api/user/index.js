@@ -1,6 +1,11 @@
 const UserApi = {
     baseUrl : 'http://localhost:49690/api/v1/',
-    accountUrl: this.baseUrl + 'Account',
+    accountUrl: 'Account',
+    authUrl: 'AuthToken',
+    registerUrl: 'Register',
+    headers: new Headers({
+        'Content-Type': 'application/json'
+    }),
     async signin(user){
         return Promise.resolve({
             name: 'Queensland',
@@ -8,16 +13,28 @@ const UserApi = {
         })
     },
     async signup(user) {
-        let headers = new Headers({
-            'Content-Type': 'application/json'
-        })
         let params = {
+            body: JSON.stringify(user),
             method: 'POST',
-            headers: headers
+            headers: this.headers
         }
-        let request = new Request(this.accountUrl, params)
+        let request = new Request(this.baseUrl + this.registerUrl, params)
         let response = fetch(request)
         return response.then( res => res.json())
+    },
+    async getAuthToken(credentials){
+        let body = {
+            email: email,
+            password: password
+        }
+        let params = {
+            body: JSON.stringify(body),
+            method: 'POST',
+            headers: this.headers
+        }
+        let request = new Request(this.baseUrl + this.authUrl, params)
+        let response = fetch(request)
+        return response.then(res => res.json())
     }
 };
 
