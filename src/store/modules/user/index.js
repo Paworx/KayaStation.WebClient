@@ -11,6 +11,9 @@ const user = {
             state.email = email;
             state.name = name;
         },
+        async signup(state, info){
+            let success = await UserApi.signup(info)
+        },
         logout(state) {
             state.email = '';
             state.name = '';
