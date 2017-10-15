@@ -1,6 +1,5 @@
 const UserApi = {
-    baseUrl : 'http://localhost:49690/api/v1/',
-    accountUrl: 'Account',
+    baseUrl : 'http://localhost:49690/api/v1/Account/',
     authUrl: 'AuthToken',
     registerUrl: 'Register',
     headers: new Headers({
