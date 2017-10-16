@@ -21,7 +21,7 @@ const UserApi = {
         let response = fetch(request)
         return response.then( res => res.json())
     },
-    async getAuthToken(credentials){
+    async getAuthToken({email, password}){
         let body = {
             email: email,
             password: password

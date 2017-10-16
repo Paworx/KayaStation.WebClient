@@ -24,9 +24,9 @@ export default {
   },
   methods: {
     async onSubmit(evt) {
-      evt.preventDefault();
-      let credentials = await this.$store.dispatch('user/signin', this.form);
-      this.$router.push('home');
+      let tokens = await this.$store.dispatch('user/getAuthToken', this.form);
+      console.log(tokens);
+      // this.$router.push('home');
     }
   }
 }

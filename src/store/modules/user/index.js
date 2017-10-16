@@ -26,10 +26,6 @@ const user = {
         }
     },
     actions: {
-        async signin ({state, commit}, user) {
-            let credentials = await UserApi.signin(user);
-            commit('signin', credentials);
-        },
         async logout({state, commit, rootState}){
             commit('logout');
         },
@@ -43,11 +39,7 @@ const user = {
                 return false
             }
         },
-        async cacheAuthToken(state, {email, password}){
-            let credentials = {
-                email: email,
-                password: password
-            }
+        async getAuthToken({state, commit}, credentials){
             let tokens = await UserApi.getAuthToken(credentials)
             commit('cacheTokens', tokens)
             return tokens
