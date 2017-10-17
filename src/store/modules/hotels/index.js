@@ -11,7 +11,7 @@ const hotels = {
         }
     },
     actions: {
-        async getByCurrentUser({state, dispatch}, {requestToken}){
+        async getByCurrentUser({state, dispatch, commit}, {requestToken}){
             if(state.currentHotel != null){
                 return state.currentHotel
             } else {
