@@ -12,7 +12,7 @@
             </b-collapse>
         </b-navbar>
     <b-row>
-        <h1>Welcome {{user}}!</h1>
+        <h1>Welcome {{name}}!</h1>
     </b-row>
     <b-row>
         <h1>Rooms</h1>
@@ -74,8 +74,8 @@ export default {
         }
     },
     computed: {
-        user () {
-            return this.$store.state.user.name;
+        name () {
+            return this.$store.state.hotels.currentHotel.name;
         },
         rooms () {
             return this.$store.state.rooms.all;
