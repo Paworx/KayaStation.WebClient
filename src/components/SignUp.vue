@@ -21,7 +21,8 @@ export default {
             form: {
                 hotelName: '',
                 email: '',
-                password: ''
+                password: '',
+                isHotelOwner: true
             }
         }
     },

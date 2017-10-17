@@ -40,9 +40,15 @@ const user = {
             }
         },
         async getAuthToken({state, commit}, credentials){
-            let tokens = await UserApi.getAuthToken(credentials)
-            commit('cacheTokens', tokens)
-            return tokens
+            let tokens;
+            if(!state.auth.hasOwnProperty("requestToken")){
+                tokens = await UserApi.getAuthToken(credentials)
+                commit('cacheTokens', tokens)
+            } else {
+                tokens = state.auth;
+            }
+
+            return tokens;
         }
     }
 }
