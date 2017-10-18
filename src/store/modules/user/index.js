@@ -43,7 +43,13 @@ const user = {
             let tokens;
             if(!state.auth.hasOwnProperty("requestToken")){
                 tokens = await UserApi.getAuthToken(credentials)
-                commit('cacheTokens', tokens)
+                // cache them tokens
+                let cachedTokens = await new Promise((resolve, reject) => {
+                    localStorage.setItem('tokens', JSON.stringify(tokens));
+                    resolve(tokens)
+                })
+
+                return cachedTokens;
             } else {
                 tokens = state.auth;
             }
