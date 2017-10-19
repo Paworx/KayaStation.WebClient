@@ -30,13 +30,13 @@
 
         <b-form>
             <b-form-group label="Name:">
-                <b-form-input type="text" v-model="form.Name" required></b-form-input>
+                <b-form-input type="text" v-model="form.name" required></b-form-input>
             </b-form-group>
             <b-form-group label="Type:">
-                <b-form-input type="text" v-model="form.Type" required></b-form-input>
+                <b-form-input type="text" v-model="form.type" required></b-form-input>
             </b-form-group>
             <b-form-group label="Price:">
-                <b-form-input type="number" v-model="form.Price" required></b-form-input>
+                <b-form-input type="number" v-model="form.price" required></b-form-input>
             </b-form-group>
         </b-form>
     </b-modal>
@@ -50,11 +50,11 @@
 export default {
     data: () => {
         return {
-            fields: ['Name', 'Price', 'Type'],
+            fields: ['name', 'price', 'type'],
             form: {
-                Name: '',
-                Price: '',
-                Type: ''
+                name: '',
+                price: '',
+                type: ''
             }
         };
     },
@@ -68,7 +68,10 @@ export default {
             this.$refs.room_add_modal.show();
         },
         onSubmit() {
-            this.$store.dispatch('rooms/add', this.form);
+            let room = Object.assign({}, this.form, {
+                hotelId: this.$store.state.hotels.currentHotel.id
+            })
+            this.$store.dispatch('rooms/add', room);
         },
         onLogout() {
             this.$store.dispatch('user/logout');
