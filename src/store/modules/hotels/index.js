@@ -3,7 +3,10 @@ import { HotelsApi } from '@/api';
 const hotels = {
     namespaced: true,
     state: {
-        currentHotel: null
+        currentHotel: {
+            name: '',
+            id: 0,
+        }
     },
     mutations: {
         saveUserHotel (state, hotel){
@@ -12,7 +15,7 @@ const hotels = {
     },
     actions: {
         async getByCurrentUser({state, dispatch, commit}, {requestToken}){
-            if(state.currentHotel != null){
+            if(state.currentHotel.name != ''){
                 return state.currentHotel
             } else {
                 let hotel = await HotelsApi.getByCurrentUser(requestToken)

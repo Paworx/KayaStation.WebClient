@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     async onSubmit(evt) {
-      let tokens = await this.$store.dispatch('user/getAuthToken', this.form);
+      let tokens = await this.$store.dispatch('user/signin', this.form);
       let hotel = await this.$store.dispatch('hotels/getByCurrentUser', tokens);
       this.$router.push('home');
     }

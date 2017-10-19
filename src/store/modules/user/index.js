@@ -39,18 +39,31 @@ const user = {
                 return false
             }
         },
+        async signin({state, commit}, credentials){
+            // get tokens and cache them
+            let tokens = await UserApi.getAuthToken(credentials)
+            // cache them tokens
+            let cachedTokens = await new Promise((resolve, reject) => {
+                localStorage.setItem('tokens', JSON.stringify(tokens));
+                resolve(tokens)
+            })
+            commit('cacheTokens', cachedTokens)
+            return cachedTokens;
+        },
         async getAuthToken({state, commit}, credentials){
             let tokens;
+            // check if token is not in state
             if(!state.auth.hasOwnProperty("requestToken")){
-                tokens = await UserApi.getAuthToken(credentials)
-                // cache them tokens
-                let cachedTokens = await new Promise((resolve, reject) => {
-                    localStorage.setItem('tokens', JSON.stringify(tokens));
-                    resolve(tokens)
-                })
-
-                return cachedTokens;
+                // check if token already in storage
+                let storageTokens = await Promise.resolve(localStorage.getItem('tokens'))
+                if(storageTokens != null){
+                    // if in storage
+                    let storageTokensObj = JSON.parse(storageTokens)
+                    commit('cacheTokens', storageTokensObj)
+                    return storageTokensObj
+                }
             } else {
+                // if tokens are in state auth
                 tokens = state.auth;
             }
 

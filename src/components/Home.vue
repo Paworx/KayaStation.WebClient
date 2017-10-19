@@ -58,7 +58,9 @@ export default {
             }
         };
     },
-    created () {
+    async created () {
+        let tokens = await this.$store.dispatch('user/getAuthToken')
+        let hotel = await this.$store.dispatch('hotels/getByCurrentUser', tokens);
         this.$store.dispatch('rooms/getById', this.$store.state.user.email);
     },
     methods: {
@@ -85,5 +87,7 @@ export default {
 </script>
 
 <style>
-
+    #navbar {
+        background-color: rgb(233,78,119)
+    }
 </style>
