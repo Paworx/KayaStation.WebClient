@@ -60,7 +60,7 @@ export default {
     },
     async created () {
         let hotel = await this.$store.dispatch('hotels/getByCurrentUser');
-        this.$store.dispatch('rooms/getById', this.$store.state.user.email);
+        this.$store.dispatch('rooms/getById', this.$store.state.hotels.currentHotel.id);
     },
     methods: {
         addRoom() {

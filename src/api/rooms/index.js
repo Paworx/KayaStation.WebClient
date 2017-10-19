@@ -1,3 +1,4 @@
+import { Auth } from '@/auth'
 import { RoomType } from './types';
 
 const RoomsApi = {
@@ -6,14 +7,23 @@ const RoomsApi = {
         'Content-Type': 'application/json'
         
     }),
+    baseUrl: 'http://localhost:49690/api/v1/Rooms/',
     async getById(id) {
-
-        return Promise.resolve([{
-            id: 0,
-            name: 'Rm. 302',
-            price: 2100,
-            hotelId: RoomType.Economy
-        }])
+        let url = this.baseUrl + 'GetById/' + id
+        let tokens = await Auth.getAccessToken()
+        let headers = Object.assign({}, this.headers, {
+            'Authorization': 'Bearer ' + tokens.requestToken
+        })
+        let params = {
+            method: 'GET',
+            headers: headers
+        }
+        let req = new Request(url, params)
+        let res = fetch(req)
+        let rooms = await res.then(response => {
+            return response.json().then(rooms => rooms, err => [])
+        }, err => [])
+        return rooms
     },
     async add(room){
         let roomWithId = Object.assign({}, room, {
