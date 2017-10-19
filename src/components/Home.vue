@@ -12,7 +12,7 @@
             </b-collapse>
         </b-navbar>
     <b-row>
-        <h1>Welcome {{user}}!</h1>
+        <h1>Welcome {{name}}!</h1>
     </b-row>
     <b-row>
         <h1>Rooms</h1>
@@ -58,7 +58,9 @@ export default {
             }
         };
     },
-    created () {
+    async created () {
+        let tokens = await this.$store.dispatch('user/getAuthToken')
+        let hotel = await this.$store.dispatch('hotels/getByCurrentUser', tokens);
         this.$store.dispatch('rooms/getById', this.$store.state.user.email);
     },
     methods: {
@@ -74,8 +76,8 @@ export default {
         }
     },
     computed: {
-        user () {
-            return this.$store.state.user.name;
+        name () {
+            return this.$store.state.hotels.currentHotel.name;
         },
         rooms () {
             return this.$store.state.rooms.all;
@@ -85,5 +87,7 @@ export default {
 </script>
 
 <style>
-
+    #navbar {
+        background-color: rgb(233,78,119)
+    }
 </style>
