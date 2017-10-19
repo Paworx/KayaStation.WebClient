@@ -2,12 +2,17 @@ import { RoomType } from './types';
 
 const RoomsApi = {
     currId: 0,
+    headers: new Headers({
+        'Content-Type': 'application/json'
+        
+    }),
     async getById(id) {
+
         return Promise.resolve([{
-            Id: 0,
-            Name: 'Rm. 302',
-            Price: 2100,
-            Type: RoomType.Economy
+            id: 0,
+            name: 'Rm. 302',
+            price: 2100,
+            hotelId: RoomType.Economy
         }])
     },
     async add(room){

@@ -1,3 +1,4 @@
+import { Auth } from '@/auth'
 const HotelsApi = {
     baseUrl: "http://localhost:49690/api/v1/Hotels/",
     headers: new Headers({
@@ -5,8 +6,9 @@ const HotelsApi = {
     }),
     async getByCurrentUser (requestToken){
         let currUserUrl = this.baseUrl + "GetByCurrentUser";
+        let tokens = await Auth.getAccessToken()
         let headers = Object.assign({}, this.headers, {
-           'Authorization': `Bearer ${requestToken}`
+           'Authorization': `Bearer ${tokens.requestToken}`
         });
         let params = {
             method: "GET",
