@@ -1,3 +1,4 @@
+import { Auth } from '@/auth';
 import { UserApi } from '@/api';
 const user = {
     namespaced: true,
@@ -43,31 +44,9 @@ const user = {
             // get tokens and cache them
             let tokens = await UserApi.getAuthToken(credentials)
             // cache them tokens
-            let cachedTokens = await new Promise((resolve, reject) => {
-                localStorage.setItem('tokens', JSON.stringify(tokens));
-                resolve(tokens)
-            })
+            let cachedTokens = await Auth.saveAccessToken(tokens)
             commit('cacheTokens', cachedTokens)
             return cachedTokens;
-        },
-        async getAuthToken({state, commit}, credentials){
-            let tokens;
-            // check if token is not in state
-            if(!state.auth.hasOwnProperty("requestToken")){
-                // check if token already in storage
-                let storageTokens = await Promise.resolve(localStorage.getItem('tokens'))
-                if(storageTokens != null){
-                    // if in storage
-                    let storageTokensObj = JSON.parse(storageTokens)
-                    commit('cacheTokens', storageTokensObj)
-                    return storageTokensObj
-                }
-            } else {
-                // if tokens are in state auth
-                tokens = state.auth;
-            }
-
-            return tokens;
         }
     }
 }

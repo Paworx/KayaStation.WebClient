@@ -14,11 +14,11 @@ const hotels = {
         }
     },
     actions: {
-        async getByCurrentUser({state, dispatch, commit}, {requestToken}){
+        async getByCurrentUser({state, dispatch, commit}){
             if(state.currentHotel.name != ''){
                 return state.currentHotel
             } else {
-                let hotel = await HotelsApi.getByCurrentUser(requestToken)
+                let hotel = await HotelsApi.getByCurrentUser()
                 commit('saveUserHotel', hotel)
                 return hotel;
             }

@@ -59,9 +59,8 @@ export default {
         };
     },
     async created () {
-        let tokens = await this.$store.dispatch('user/getAuthToken')
-        let hotel = await this.$store.dispatch('hotels/getByCurrentUser', tokens);
-        this.$store.dispatch('rooms/getById', this.$store.state.user.email);
+        let hotel = await this.$store.dispatch('hotels/getByCurrentUser');
+        this.$store.dispatch('rooms/getById', this.$store.state.hotels.currentHotel.id);
     },
     methods: {
         addRoom() {
