@@ -8,6 +8,7 @@ const rooms = {
     mutations: {
         getById(state, params) {
             let { id, rooms } = params;
+            console.log(rooms)
             state.all = rooms;
         },
         add(state, room) {
