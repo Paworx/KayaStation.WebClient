@@ -62,7 +62,7 @@ export default {
             return this.$store.state.hotels.currentHotel.name;
         },
         rooms () {
-            return this.$store.state.hotels.currentHotel.rooms;
+            return this.$store.state.rooms.all;
         }
     }
 }

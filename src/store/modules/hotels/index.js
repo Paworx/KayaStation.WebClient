@@ -20,6 +20,8 @@ const hotels = {
             } else {
                 let hotel = await HotelsApi.getByCurrentUser()
                 commit('saveUserHotel', hotel)
+                // save rooms in respective stores
+                dispatch('rooms/saveRooms', hotel.rooms, {root: true})
                 return hotel;
             }
         }

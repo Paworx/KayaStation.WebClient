@@ -11,6 +11,9 @@ const rooms = {
             console.log(rooms)
             state.all = rooms;
         },
+        saveRooms(state, rooms){
+            state.all = rooms
+        },
         add(state, room) {
             console.log(room);
             state.all = state.all.concat(room);
@@ -25,6 +28,9 @@ const rooms = {
             };
             commit('getById', params);
             return Promise.resolve(params);
+        },
+        async saveRooms({state, dispatch, commit}, rooms){
+            commit('saveRooms', rooms)
         },
         async add({state, dispatch, commit}, newRoom) {
             let room = await RoomsApi.add(newRoom);
