@@ -17,6 +17,10 @@ const rooms = {
         add(state, room) {
             console.log(room);
             state.all = state.all.concat(room);
+        },
+        update(state, room) {
+            let lRoom = state.all.filter(lRoom => lRoom.id == room.id)
+            lRoom = Object.assign({}, room)
         }
     },
     actions: {
@@ -36,6 +40,11 @@ const rooms = {
             let room = await RoomsApi.add(newRoom);
             commit('add', room);
             return Promise.resolve(room);
+        },
+        async update({state, dispatch, commit}, room) {
+            let upRoom = await RoomsApi.update(room)
+            commit('update', room)
+            return Promise.resolve(room)
         }
     }
 }

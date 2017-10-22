@@ -22,7 +22,7 @@
             <b-nav-item @click="addRoom()">Add Room</b-nav-item>
         </b-nav>
     </b-row>
-        <b-table striped hover :items="rooms" :fields="fields"></b-table>
+        <b-table striped hover :items="rooms" :fields="fields" @row-clicked="editRoom"></b-table>
     </b-row>
     <room-modal ref="room_modal_component"></room-modal>
     
@@ -47,9 +47,11 @@ export default {
     methods: {
         addRoom() {
             console.log('adding room');
-            this.$refs.room_modal_component.$refs.room_add_modal.show();
+            this.$refs.room_modal_component.show();
         },
-        
+        editRoom(room){
+            this.$refs.room_modal_component.show(room);
+        },
         onLogout() {
             this.$store.dispatch('user/logout');
         }

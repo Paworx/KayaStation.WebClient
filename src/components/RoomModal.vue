@@ -24,7 +24,8 @@ export default {
                 name: '',
                 price: '',
                 type: ''
-            }
+            },
+            mode: 'add'
         }
     },
     methods: {
@@ -37,7 +38,26 @@ export default {
                 price: '',
                 type: ''
             }
-            this.$store.dispatch('rooms/add', room);
+            console.log(this.mode)
+            switch(this.mode){
+                case 'edit':
+                    this.$store.dispatch('rooms/update', room)
+                    delete this.form.id
+                    break
+                case 'add':
+                    this.$store.dispatch('rooms/add', room);
+                    break
+            }
+        },
+        show(room){
+            console.log(room)
+            if(room){
+                this.mode = 'edit'
+                this.form = room
+            } else{
+                this.mode = 'add'
+            }
+            this.$refs.room_add_modal.show()
         }
     }
 }
