@@ -42,6 +42,24 @@ const RoomsApi = {
             return response.json().then(room => room, err => [])
         })
         return savedRoom
+    },
+    async update(room){
+        let url = this.baseUrl + 'Update/' + room.id
+        let tokens = await Auth.getAccessToken()
+        let headers = new Headers(Object.assign({}, this.headers, {
+            'Authorization': 'Bearer ' + tokens.requestToken
+        }))
+        let params = {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(room)
+        }
+        let req = new Request(url, params)
+        let res = fetch(req)
+        let upRoom = await res.then(response => {
+            return response.json().then(room => room, err => [])
+        })
+        return upRoom
     }
 }
 
