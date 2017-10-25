@@ -60,6 +60,24 @@ const RoomsApi = {
             return response.json().then(room => room, err => [])
         })
         return upRoom
+    },
+    async delete(id){
+        let url = this.baseUrl + 'Delete/' + id
+        let tokens = await Auth.getAccessToken()
+        let headers = new Headers(Object.assign({}, this.headers, {
+            'Authorization': 'Bearer ' + tokens.requestToken
+        }))
+        let params = {
+            method: 'POST',
+            headers: headers
+        }
+        let req = new Request(url, params)
+        let res = fetch(req)
+        let status = await res.then(response => {
+            return response.ok
+        })
+        
+        return status
     }
 }
 

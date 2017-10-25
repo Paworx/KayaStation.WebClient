@@ -13,6 +13,7 @@
                 <b-form-input type="number" v-model="form.price" required></b-form-input>
             </b-form-group>
         </b-form>
+        <b-button variant="danger" v-if="checkMode('edit')" @click="removeRoom">Delete</b-button>
     </b-modal>
 </template>
 
@@ -29,6 +30,9 @@ export default {
         }
     },
     methods: {
+        checkMode(mode){
+            return mode == this.mode
+        },
         onSubmit() {
             let room = Object.assign({}, this.form, {
                 hotelId: this.$store.state.hotels.currentHotel.id
@@ -58,6 +62,13 @@ export default {
                 this.mode = 'add'
             }
             this.$refs.room_add_modal.show()
+        },
+        async removeRoom(){
+            let id = this.form.id
+            let success = await this.$store.dispatch("rooms/delete", id)
+            if(success){
+                this.$refs.room_add_modal.hide()
+            }
         }
     }
 }

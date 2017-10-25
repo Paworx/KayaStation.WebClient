@@ -21,6 +21,9 @@ const rooms = {
         update(state, room) {
             let lRoom = state.all.filter(lRoom => lRoom.id == room.id)
             lRoom = Object.assign({}, room)
+        },
+        delete(state, id){
+            state.all = state.all.filter(room => room.id != id)
         }
     },
     actions: {
@@ -45,6 +48,13 @@ const rooms = {
             let upRoom = await RoomsApi.update(room)
             commit('update', room)
             return Promise.resolve(room)
+        },
+        async delete({state, dispatch, commit}, id){
+            let success = await RoomsApi.delete(id)
+            if(success){
+                commit('delete', id)
+            }
+            return Promise.resolve(success)
         }
     }
 }
